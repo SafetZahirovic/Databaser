@@ -1,0 +1,20 @@
+CREATE USER 'Butikk_6092' identified by '6092';
+
+Create view OversiktOverVarer AS
+  select V.Navn, VB.VareID, VB.ButikkID, B.ButikkSted, B.ButikkAdresse
+  from Butikk AS B join (VareBeholdning AS VB join Vare AS V on VB.VareID = V.VareID) on VB.ButikkID = B.ButikkID
+order by ButikkID;
+
+grant select on OversiktOverVarer to 'Butikk_6092';
+
+Alter table;
+All Privileges;
+REVOKE SELECT ON OversiktOverVarer FROM 'Butikk_6092';
+
+DROP USER 'Butikk_6092' ;
+
+
+
+
+
+
