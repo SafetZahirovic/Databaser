@@ -1,0 +1,14 @@
+SELECT V.Navn, V.EAN, B.ButikkID, B.ButikkSted, B.ButikkAdresse
+FROM Vare AS V JOIN ( VareBeholdning AS VB JOIN Butikk AS B on VB.ButikkID = B.ButikkID)ON V.VareID = VB.VareID
+WHERE V.Navn = "Deigfat";
+
+SELECT count(*) AS AntallVarerIButikk, V.Navn,  B.ButikkID, B.ButikkSted,  B.ButikkAdresse
+FROM Butikk AS B JOIN ( VareBeholdning AS VB JOIN Vare AS V on VB.VareID = V.VareID)ON VB.ButikkID = B.ButikkID
+WHERE V.Navn = "Deigfat"
+GROUP BY B.ButikkID;
+
+SELECT B.ButikkID, B.ButikkSted,SUM(V.Pris) AS SummertPrisPerButikk
+FROM Butikk AS B JOIN ( VareBeholdning AS VB join Vare AS V on VB.VareID = V.VareID)ON VB.ButikkID = B.ButikkID
+GROUP BY ButikkID
+HAVING SummertPrisPerButikk > 500
+ORDER BY ButikkID;
