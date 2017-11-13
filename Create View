@@ -1,0 +1,37 @@
+CREATE VIEW ANSATT_BUTIKK  AS 
+SELECT A.ANSATTNAVN, A.ANSATTETTERNAVN, B.BUTIKKID,B.BUTIKKADRESSE, B.BUTIKKSTED, L.LAGERID, L.LAGERSTED
+FROM BUTIKKANSATT AS A INNER JOIN (
+  BUTIKK AS B INNER JOIN LAGER AS L ON B.LAGERID = L.LAGERID
+    ) 
+ON A.BUTIKKID = B.BUTIKKID;
+
+ 
+UPDATE Ansatt_Butikk
+SET ButikkSted = "Hamar"
+WHERE ButikkSted= "Oslo";
+
+SELECT*
+FROM Butikk;
+
+SELECT*
+FROM Ansatt_Butikk;
+
+CREATE VIEW Butikk_Varer  AS 
+SELECT count(*) AS AntallVarerIButikk, V.Navn,  B.ButikkID, B.ButikkSted,  B.ButikkAdresse
+FROM Butikk AS B JOIN ( VareBeholdning AS VB JOIN Vare AS V on VB.VareID = V.VareID)ON VB.ButikkID = B.ButikkID
+WHERE V.Navn = "Deigfat"
+GROUP BY B.ButikkID;
+
+SELECT*
+FROM Butikk_Varer;
+
+UPDATE Butikk_Varer
+SET Navn = "Øks"
+WHERE Navn= "Deigfat";
+
+UPDATE Butikk_Varer
+SET ButikkID= "235"
+WHERE ButikkID= "1";
+
+DROP VIEW Ansatt_Butikk;
+DROP VIEW Butikk_Varer;
