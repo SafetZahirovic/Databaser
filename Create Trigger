@@ -1,0 +1,27 @@
+
+create table VareHistorikk(
+	Navn varchar(20),
+    Pris varchar(10),
+	Dato Date
+)
+
+DELIMITER ::
+Create Trigger Vare_Backup
+	after update on Vare
+    for each row
+begin  
+    insert into VareHistorikk
+    Values (old.Navn,old.Pris, curdate()) ;
+END ::
+DELIMITER ;
+
+drop trigger Vare_Backup;
+
+update  Vare 
+set pris = 50
+where Vare.Navn = "Deigfat"; 
+
+select*
+from VareHistorikk;
+
+drop table VareHistorikk;
