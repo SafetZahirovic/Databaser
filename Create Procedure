@@ -6,7 +6,7 @@ create procedure Tilbud
 )
 BEGIN 
 	update Vare1
-	set Pris = Round (Pris - (1 + t_Prosent / 100), 2)
+	set Pris = Round (Pris * (1 - t_Prosent / 100), 2)
 	where Navn = t_Navn;
 END ::
 delimiter ;
